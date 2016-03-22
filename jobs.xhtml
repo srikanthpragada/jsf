@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhmtl"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<head>
+ <title>Hello</title>
+ <style>
+   .colhead { background-color:black;color:white}
+   .first { background-color:white}
+   .second { background-color:gray}
+ </style>
+</head>
+<body>
+	<h1>Jobs</h1>
+	<h:dataTable headerClass="colhead"  rowClasses="first,second" var="job" value="#{jobsBean.jobs}">
+		<h:column>
+			<f:facet name="header">Job ID</f:facet>
+            #{job.job_id}
+        </h:column>
+		<h:column>
+			<f:facet name="header">Job Title</f:facet>
+            #{job.job_title}
+        </h:column>
+	</h:dataTable>
+</body>
+</html>
