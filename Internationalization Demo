@@ -1,0 +1,93 @@
+add.xhtml
+=========
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhmtl"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<f:view locale="#{facesContext.externalContext.request.locale}">
+	<f:loadBundle basename="messages" var="msgs" />
+	<h:head>
+		<title>#{msgs.title}</title>
+	</h:head>
+	<h:body>
+
+		<h1>#{msgs.title}</h1>
+		<h:form id="addForm">
+            #{msgs.firstLabel} <br />
+			<h:inputText id="num1" value="#{addBean.num1}" />
+			<p />
+            #{msgs.secondLabel} <br />
+			<h:inputText id="num2" value="#{addBean.num2}" />
+			<p />
+			<p />
+			<h:commandButton type="submit" value="#{msgs.addTitle}"
+				actionListener="#{addBean.add}">
+				<f:ajax execute="num1 num2" render="result" />
+			</h:commandButton>
+			<p />
+			<h3>
+				<h:outputText id="result" value="#{addBean.result}" />
+			</h3>
+		</h:form>
+
+	</h:body>
+</f:view>
+</html>
+
+AddBean.java
+============
+package jsfdemo;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.event.ActionEvent;
+
+@ManagedBean
+public class AddBean {
+
+	private int num1, num2, result;
+
+	public int getNum1() {
+		return num1;
+	}
+
+	public void setNum1(int num1) {
+		this.num1 = num1;
+	}
+
+	public int getNum2() {
+		return num2;
+	}
+
+	public void setNum2(int num2) {
+		this.num2 = num2;
+	}
+
+	public int getResult() {
+		return result;
+	}
+
+	public void setResult(int result) {
+		this.result = result;
+	}
+
+	public void add(ActionEvent e) {
+		result = num1 + num2;
+	}
+}
+
+messages.properties
+===================
+title=Add Numbers
+firstLabel=First Number
+secondLabel=Second Number
+addTitle=Add Numbers
+
+
+messages_es.properties
+=====================
+title=Añadir números
+firstLabel=Primer número
+secondLabel=segundo Número
+addTitle=Añadir números
+
+
