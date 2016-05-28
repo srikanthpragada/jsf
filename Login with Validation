@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+   <h2>Login</h2>
+   <h:form id="loginForm">
+   
+     Username 
+     <br/>
+     <h:inputText  p:required="required" id="username" value="#{loginBean.username}"></h:inputText>
+     <h:message for="username"></h:message>
+     <p/>
+     
+     Password 
+     <br/>
+     <h:inputSecret p:required="required"  id="password" value="#{loginBean.password}"></h:inputSecret>
+     <h:message for="password"></h:message>
+     <p/>
+     
+     
+     <h:commandButton  value="Login"  action="#{loginBean.login}"></h:commandButton>
+     <p/>
+     <h3>
+        #{loginBean.message}
+     </h3>
+     
+     LoginBean.java
+     ==============
+     package jsf2demo;
+
+import javax.faces.bean.ManagedBean;
+import javax.validation.constraints.Size;
+
+@ManagedBean
+public class LoginBean {
+
+	private String username, password, message;
+
+	@Size( min=4, max=10, message="Username must be 4 to 10 chars")
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@Size( min=4, max=10, message="Password must be 4 to 10 chars")
+	public String getPassword() {
+		return password;
+	}
+
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String login() {
+		if (username.equals("admin") && password.equals("admin"))
+			return "home";
+		else {
+			message = "Sorry! Invalid login.";
+			return "login";
+		}
+	}
+
+}
+
+   </h:form>
+</html>
