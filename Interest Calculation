@@ -1,0 +1,81 @@
+interest.xhtml
+===============
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c = "http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f = "http://java.sun.com/jsf/core"
+      xmlns:h = "http://java.sun.com/jsf/html">
+<head>
+<title>Interest</title>
+</head>
+<body>
+	<h2>Interest Calculation</h2>
+	
+	<h:form>
+	  Amount <br/>
+	  <h:inputText id="amount"  value="#{interestBean.amount}"
+	       validatorMessage="Invalid amount. It must be >= 1000" >
+	      <f:validateDoubleRange minimum="1000"></f:validateDoubleRange>
+	  </h:inputText> 
+	  <h:message for="amount" />
+	  <p/>
+	  Rate <br/>
+	  <h:inputText id="rate"  value="#{interestBean.rate}" validatorMessage="Rate must be between 5 to 50">
+	       <f:validateDoubleRange minimum="5" maximum="50"></f:validateDoubleRange>
+	  </h:inputText>
+	  <h:message for="rate" />
+	  <p/>
+	  <h:commandButton value="Calculate" actionListener="#{interestBean.calculate}"></h:commandButton>
+	  <h3>
+	    <c:if test="#{interestBean.result > 0}">
+	          #{interestBean.result}
+	    </c:if>      
+	   </h3>
+	</h:form>
+    	   	   
+</body>
+</html>
+
+InterestBean.java
+=================
+package beans;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.event.ActionEvent;
+
+@ManagedBean
+public class InterestBean {
+	
+	double amount, rate, result;
+
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public double getRate() {
+		return rate;
+	}
+
+	public void setRate(double rate) {
+		this.rate = rate;
+	}
+
+	public double getResult() {
+		return result;
+	}
+
+	public void setResult(double result) {
+		this.result = result;
+	}
+	
+	public void calculate(ActionEvent evt) {
+		// System.out.println("calculate()");
+		result = amount * rate / 100; 
+	}
+	
+
+}
